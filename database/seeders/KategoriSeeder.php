@@ -13,12 +13,14 @@ class KategoriSeeder extends Seeder
      */
     public function run(): void
     {
-         DB::table('m_kategori')->insert([
-            ['kategori_kode' => 'KTG001', 'kategori_nama' => 'Elektronik', 'created_at' => NOW()],
-            ['kategori_kode' => 'KTG002', 'kategori_nama' => 'Pakaian', 'created_at' => NOW()],
-            ['kategori_kode' => 'KTG003', 'kategori_nama' => 'Makanan', 'created_at' => NOW()],
-            ['kategori_kode' => 'KTG004', 'kategori_nama' => 'Alat Tulis', 'created_at' => NOW()],
-            ['kategori_kode' => 'KTG005', 'kategori_nama' => 'Perabotan', 'created_at' => NOW()],
-        ]);
+        $data = [
+            ['kategori_id' => 1, 'kategori_kode' => 'ELK', 'kategori_nama' => 'Elektronik'],
+            ['kategori_id' => 2, 'kategori_kode' => 'SMP', 'kategori_nama' => 'Sampah Rumah Tangga'],
+            ['kategori_id' => 3, 'kategori_kode' => 'MKN', 'kategori_nama' => 'Makanan'],
+            ['kategori_id' => 4, 'kategori_kode' => 'PKN', 'kategori_nama' => 'Perlengkapan Kantor'],
+            ['kategori_id' => 5, 'kategori_kode' => 'OTM', 'kategori_nama' => 'Otomotif'],
+        ];
+        
+        DB::table('m_kategori')->insert($data);
     }
 }

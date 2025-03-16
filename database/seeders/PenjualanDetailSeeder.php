@@ -13,11 +13,21 @@ class PenjualanDetailSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('t_penjualan_detail')->insert([
-            ['penjualan_id' => 4, 'barang_id' => 7, 'harga' => 7000000, 'jumlah' => 1, 'created_at' => NOW()],
-            ['penjualan_id' => 4, 'barang_id' => 8, 'harga' => 4500000, 'jumlah' => 1, 'created_at' => NOW()],
-            ['penjualan_id' => 5, 'barang_id' => 12, 'harga' => 150000, 'jumlah' => 2, 'created_at' => NOW()],
-            ['penjualan_id' => 6, 'barang_id' => 9, 'harga' => 300000, 'jumlah' => 1, 'created_at' => NOW()],
-        ]);
+        $data = [];
+        for ($i = 1; $i <= 10; $i++) { // loop 10 transaksi
+            $itemDipilih = array_rand(range(1, 10), 3); // 3 item random per transaksi
+            foreach ($itemDipilih    as $index) {
+                $barang_id = $index + 1; // ubah index ke barang_id yang tersedia/valid
+                $harga = DB::table('m_barang')->where('barang_id', $barang_id)->value('harga_jual'); // get harga jual
+                $data[] = [
+                    'detail_id' => count($data) + 1, // auto increment untuk detail_id
+                    'penjualan_id' => $i,
+                    'barang_id' => $barang_id, // item yang telah dirandom
+                    'harga' => $harga, // harga yang didapatkan sebelumnya
+                    'jumlah' => rand(1, 5), // jumlah random
+                ];
+            }
+        }
+        DB::table('t_penjualan_detail')->insert($data);
     }
 }
